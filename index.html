@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Polydex — Ensiklopedia Raksasa Geometri Interaktif. Teroka bentuk geometri dari Segi Tiga hingga Dekagon dengan data matematik yang tepat.">
+    <title>Polydex — Ensiklopedia Geometri</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <!-- Scan Lines Overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header" id="appHeader">
+            <div class="header-left">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 40 40" class="logo-svg">
+                        <polygon points="20,2 38,32 2,32" fill="none" stroke="url(#logoGrad)" stroke-width="2"/>
+                        <polygon points="20,10 32,30 8,30" fill="none" stroke="url(#logoGrad2)" stroke-width="1.5" opacity="0.6"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00f0ff"/>
+                                <stop offset="100%" style="stop-color:#7b2fff"/>
+                            </linearGradient>
+                            <linearGradient id="logoGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00f0ff;stop-opacity:0.5"/>
+                                <stop offset="100%" style="stop-color:#ff006e;stop-opacity:0.5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>POLYDEX</h1>
+                    <span class="logo-subtitle">GEOMETRIC ENCYCLOPEDIA v2.0</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="header-stat">
+                    <span class="header-stat-label">SHAPES</span>
+                    <span class="header-stat-value" id="totalShapes">8</span>
+                </div>
+                <div class="header-divider"></div>
+                <div class="header-stat">
+                    <span class="header-stat-label">STATUS</span>
+                    <span class="header-stat-value status-online">AKTIF</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- LEFT PANEL — Active Shape Display -->
+            <section class="left-panel" id="leftPanel">
+                
+                <!-- Shape Visualization Area -->
+                <div class="shape-display-area">
+                    <div class="shape-display-ring ring-outer"></div>
+                    <div class="shape-display-ring ring-inner"></div>
+                    <div class="shape-glow" id="shapeGlow"></div>
+                    <canvas id="shapeCanvas" width="400" height="400"></canvas>
+                    <img id="pokemonImage" class="pokemon-display" src="images/triangle.png" alt="Segi Tiga Pokemon">
+                    <div class="shape-label-floating" id="shapeFloatingLabel"></div>
+                </div>
+
+                <!-- Shape Name and Classification -->
+                <div class="shape-identity" id="shapeIdentity">
+                    <div class="shape-id-badge" id="shapeIdBadge">POL-001</div>
+                    <h2 class="shape-name-bm" id="shapeNameBM">Segi Tiga</h2>
+                    <p class="shape-name-en" id="shapeNameEN">Triangle</p>
+                    <div class="shape-classification" id="shapeClassification">
+                        <span class="class-tag">Poligon Sekata</span>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card" id="statSisi">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="4" y1="20" x2="20" y2="20"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">SISI</span>
+                            <span class="stat-value" id="statSisiVal">3</span>
+                        </div>
+                        <div class="stat-bar"><div class="stat-bar-fill" id="statSisiBar" style="width:30%"></div></div>
+                    </div>
+                    <div class="stat-card" id="statBucu">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">BUCU</span>
+                            <span class="stat-value" id="statBucuVal">3</span>
+                        </div>
+                        <div class="stat-bar"><div class="stat-bar-fill" id="statBucuBar" style="width:30%"></div></div>
+                    </div>
+                    <div class="stat-card" id="statDiag">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="4" y1="4" x2="20" y2="20" stroke-dasharray="4 2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">PEPENJURU</span>
+                            <span class="stat-value" id="statDiagVal">0</span>
+                        </div>
+                        <div class="stat-bar"><div class="stat-bar-fill" id="statDiagBar" style="width:0%"></div></div>
+                    </div>
+                    <div class="stat-card stat-card-wide" id="statAngle">
+                        <div class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 20 L4 8 L16 20 Z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-label">JUMLAH SUDUT PEDALAMAN</span>
+                            <span class="stat-value" id="statAngleVal">180°</span>
+                        </div>
+                        <div class="stat-bar"><div class="stat-bar-fill" id="statAngleBar" style="width:12.5%"></div></div>
+                    </div>
+                </div>
+
+                <!-- Formula Display -->
+                <div class="formula-display" id="formulaDisplay">
+                    <div class="formula-row">
+                        <span class="formula-label">Pepenjuru</span>
+                        <span class="formula-expr" id="formulaDiag">n(n−3)/2 = 3(3−3)/2 = 0</span>
+                    </div>
+                    <div class="formula-row">
+                        <span class="formula-label">Sudut Pedalaman</span>
+                        <span class="formula-expr" id="formulaAngle">(n−2)×180° = (3−2)×180° = 180°</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- RIGHT PANEL — Grid & Search -->
+            <section class="right-panel" id="rightPanel">
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-bar" id="searchBar">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="7"/>
+                            <line x1="16.5" y1="16.5" x2="21" y2="21"/>
+                        </svg>
+                        <input type="text" id="searchInput" placeholder="Cari bentuk geometri..." autocomplete="off" spellcheck="false">
+                        <div class="search-shortcut">
+                            <kbd>Ctrl</kbd><kbd>K</kbd>
+                        </div>
+                    </div>
+                    <div class="search-results-count" id="searchResultsCount">
+                        Menunjukkan <span id="filteredCount">8</span> / <span id="totalCount">8</span> bentuk
+                    </div>
+                </div>
+
+                <!-- Shape Grid -->
+                <div class="shape-grid" id="shapeGrid">
+                    <!-- Cards generated by JS -->
+                </div>
+
+                <!-- Footer Info -->
+                <div class="right-panel-footer">
+                    <p>Polydex v2.0 — Data Geometri Sekata</p>
+                    <p class="footer-formula">Pepenjuru: n(n−3)/2 &nbsp;|&nbsp; Sudut: (n−2)×180°</p>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
